@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnimalDex</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn">☰</button>
+
+  <h1>ANIMALDEX</h1>
+
+  <div class="top-info">
+    <span id="animalCount">0</span> DISCOVERED
+  </div>
+</header>
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="sidebar-header">
+    <h2>ANIMALDEX</h2>
+    <button id="closeSidebar">×</button>
+  </div>
+
+  <button class="nav-btn active" data-view="collection">
+    COLLECTION
+  </button>
+
+  <button class="nav-btn" data-view="favorites">
+    FAVORITES
+  </button>
+
+  <button class="nav-btn" data-view="recent">
+    RECENTLY ADDED
+  </button>
+
+  <button class="nav-btn" data-view="categories">
+    CATEGORIES
+  </button>
+
+  <button class="nav-btn" data-view="taxonomy">
+    TAXONOMY
+  </button>
+
+  <button class="nav-btn" data-view="stats">
+    DEX PROGRESS
+  </button>
+
+</aside>
+
+<div id="overlay"></div>
+
+<main>
+
+<section id="collectionView">
+
+  <div class="hero">
+
+    <p class="eyebrow">
+      YOUR PERSONAL WILDLIFE ENCYCLOPEDIA
+    </p>
+
+    <h2 id="pageTitle">
+      YOUR COLLECTION
+    </h2>
+
+    <p id="pageDescription">
+      Research animals and build your own AnimalDex.
+    </p>
+
+    <div class="search-row">
+
+      <input
+        id="collectionSearch"
+        type="search"
+        placeholder="Search your AnimalDex..."
+      >
+
+      <button class="primary-btn" id="addAnimalBtn">
+        + ADD ANIMAL
+      </button>
+
+    </div>
+
+    <div id="filterBar"></div>
+
+  </div>
+
+  <div id="contentArea"></div>
+
+</section>
+
+
+<section id="profileView" class="hidden">
+
+  <button class="back-btn" id="backBtn">
+    ← BACK TO COLLECTION
+  </button>
+
+  <div id="profileArea"></div>
+
+</section>
+
+</main>
+
+
+<!-- ADD / EDIT ANIMAL -->
+
+<div class="modal hidden" id="animalModal">
+
+<div class="modal-card">
+
+<div class="modal-header">
+
+<div>
+
+<p class="eyebrow">
+ANIMALDEX ENTRY
+</p>
+
+<h2 id="modalTitle">
+ADD ANIMAL
+</h2>
+
+</div>
+
+<button id="closeModal">
+×
+</button>
+
+</div>
+
+
+<form id="animalForm">
+
+<input
+type="hidden"
+id="editId"
+>
+
+
+<!-- SEARCH -->
+
+<section class="lookup">
+
+<h3>
+1. FIND YOUR ANIMAL
+</h3>
+
+<p>
+Search the animal database first so AnimalDex can verify the animal.
+</p>
+
+<div class="lookup-row">
+
+<input
+id="animalName"
+required
+placeholder="Example: lion, oarfish, axolotl"
+>
+
+<button
+type="button"
+class="primary-btn"
+id="verifyBtn"
+>
+SEARCH
+</button>
+
+</div>
+
+<div id="verificationStatus"></div>
+
+</section>
+
+
+<!-- VERIFIED INFORMATION -->
+
+<section
+id="verifiedPanel"
+class="verified hidden"
+>
+
+<h3>
+VERIFIED CLASSIFICATION
+</h3>
+
+<div id="verifiedName"></div>
+
+<div
+id="classificationPreview"
+class="fact-grid"
+></div>
+
+</section>
+
+
+<!-- BASIC INFORMATION -->
+
+<h3>
+2. ANIMAL INFORMATION
+</h3>
+
+<div class="form-grid">
+
+<label>
+SCIENTIFIC NAME
+<input id="scientificName">
+</label>
+
+<label>
+IMAGE URL
+<input
+id="imageUrl"
+placeholder="Optional image URL"
+>
+</label>
+
+<label>
+HABITAT
+<input id="habitat">
+</label>
+
+<label>
+DIET
+<input id="diet">
+</label>
+
+<label>
+LIFESPAN
+<input id="lifespan">
+</label>
+
+<label>
+SIZE
+<input id="size">
+</label>
+
+<label>
+WEIGHT
+<input id="weight">
+</label>
+
+<label>
+CONSERVATION STATUS
+<input id="conservation">
+</label>
+
+<label>
+GEOGRAPHIC RANGE
+<input id="range">
+</label>
+
+</div>
+
+
+<!-- TAXONOMY -->
+
+<h3>
+3. SCIENTIFIC CLASSIFICATION
+</h3>
+
+<div class="form-grid">
+
+<label>
+KINGDOM
+<input id="kingdom">
+</label>
+
+<label>
+PHYLUM
+<input id="phylum">
+</label>
+
+<label>
+CLASS
+<input id="className">
+</label>
+
+<label>
+ORDER
+<input id="order">
+</label>
+
+<label>
+FAMILY
+<input id="family">
+</label>
+
+<label>
+GENUS
+<input id="genus">
+</label>
+
+<label>
+SPECIES
+<input id="species">
+</label>
+
+</div>
+
+
+<!-- CATEGORIES -->
+
+<h3>
+4. DEX CATEGORIES
+</h3>
+
+<p>
+AnimalDex will suggest categories based on the animal.
+You can also select your own.
+</p>
+
+<div
+id="categoryPicker"
+class="category-picker"
+></div>
+
+
+<!-- NOTES -->
+
+<h3>
+5. YOUR RESEARCH
+</h3>
+
+<label>
+FUN FACTS
+
+<textarea
+id="facts"
+placeholder="Write one fact per line..."
+></textarea>
+
+</label>
+
+
+<label>
+MY NOTES
+
+<textarea
+id="notes"
+placeholder="Write everything you want to remember..."
+></textarea>
+
+</label>
+
+
+<div class="form-actions">
+
+<button
+type="button"
+class="secondary-btn"
+id="cancelBtn"
+>
+CANCEL
+</button>
+
+<button
+type="submit"
+class="primary-btn"
+>
+SAVE ANIMAL
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
